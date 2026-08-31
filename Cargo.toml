@@ -3,11 +3,7 @@ name = "dialoguer"
 description = "A command line prompting library."
 version = "0.12.0"
 edition = "2021"
-rust-version = "1.63.0"
-authors = [
-	"Armin Ronacher <armin.ronacher@active-4.com>",
-	"Pavan Kumar Sunkara <pavan.sss1991@gmail.com>"
-]
+rust-version = "1.71"
 keywords = ["cli", "menu", "prompt"]
 categories = ["command-line-interface"]
 license = "MIT"
@@ -25,7 +21,7 @@ password = ["zeroize"]
 completion = []
 
 [dependencies]
-console = "0.16.0"
+console = "0.16.4"
 tempfile = { version = "3", optional = true }
 zeroize = { version = "1.8.1", optional = true }
 fuzzy-matcher = { version = "0.3.7", optional = true }
@@ -49,6 +45,10 @@ name = "history"
 required-features = ["history"]
 
 [[example]]
+name = "history_custom"
+required-features = ["history"]
+
+[[example]]
 name = "completion"
 required-features = ["completion"]
 
@@ -58,3 +58,8 @@ no_individual_tags = true
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
 all-features = true
+
+[package.metadata.cargo_check_external_types]
+allowed_external_types = [
+    "console", "console::*", "fuzzy_matcher::skim::SkimMatcherV2",
+]

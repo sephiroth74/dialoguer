@@ -173,6 +173,20 @@ impl Theme for ColorfulTheme {
         }
     }
 
+    /// Formats a confirm prompt without the hint ([y/n]).
+    fn format_confirm_prompt_no_hint(&self, f: &mut dyn fmt::Write, prompt: &str) -> fmt::Result {
+        if !prompt.is_empty() {
+            write!(
+                f,
+                "{} {} {}",
+                &self.prompt_prefix,
+                self.prompt_style.apply_to(prompt),
+                &self.prompt_suffix
+            )?;
+        }
+        Ok(())
+    }
+
     /// Formats a confirm prompt after selection.
     fn format_confirm_prompt_selection(
         &self,
@@ -393,7 +407,11 @@ impl Theme for ColorfulTheme {
             }
         }
 
-        write!(f, "{}", text)
+        if active {
+            write!(f, "{}", self.active_item_style.apply_to(text))
+        } else {
+            write!(f, "{}", text)
+        }
     }
 
     /// Formats a fuzzy-selectprompt after selection.
